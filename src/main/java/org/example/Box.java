@@ -1,37 +1,46 @@
 package org.example;
 
-public class Box<S,I,F> {
-    private S string;
-    private I numberInt;
-    private F numberFloat;
+import java.io.Serializable;
+import java.util.List;
+public class Box<T extends Number & Comparable<T> & Serializable> {
 
-    public Box(S string, I numberInt, F numberFloat) {
-        this.string = string;
-        this.numberInt = numberInt;
-        this.numberFloat = numberFloat;
+    private T[] array;
+
+    public Box(T... array) {
+        this.array = array;
     }
 
-    public S getString() {
-        return string;
+    public T[] getArray() {
+        return array;
     }
 
-    public void setString(S string) {
-        this.string = string;
+    public double avg() {
+        double result = 0;
+        for (T element : array) {
+            result += ((Number) element).doubleValue();
+        }
+        return result / array.length;
     }
 
-    public I getNumberInt() {
-        return numberInt;
+    // public static void method(List<Number> numbers) {
+    //
+    // }
+
+    public static void method(List<? extends Number> numbers) {
+
     }
 
-    public void setNumberInt(I numberInt) {
-        this.numberInt = numberInt;
+    public int compare(Box<?> another) {
+        if (avg() > another.avg()) {
+            return 1;
+        } else if (avg() == another.avg()) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 
-    public F getNumberFloat() {
-        return numberFloat;
-    }
-
-    public void setNumberFloat(F numberFloat) {
-        this.numberFloat = numberFloat;
+    public void setArray(T[] array) {
+        this.array = array;
     }
 }
