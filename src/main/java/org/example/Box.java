@@ -30,6 +30,10 @@ public class Box<T extends Number & Comparable<T> & Serializable> {
 
     }
 
+    public static <V> void transfer(List<V> src, List<V> dst) {
+        dst.addAll(src);
+        src.clear();
+    }
     public int compare(Box<?> another) {
         if (avg() > another.avg()) {
             return 1;
